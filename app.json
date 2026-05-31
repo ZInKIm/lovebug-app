@@ -1,0 +1,26 @@
+{
+  "expo": {
+    "name": "러브버그 퇴치기",
+    "slug": "lovebug-app",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "backgroundColor": "#E1F5EE"
+    },
+    "ios": {
+      "supportsTablet": false,
+      "bundleIdentifier": "com.lovebug.app"
+    },
+    "android": {
+      "adaptiveIcon": {
+        "backgroundColor": "#E1F5EE"
+      },
+      "package": "com.lovebug.app"
+    },
+    "plugins": [
+      "expo-font"
+    ]
+  }
+}
