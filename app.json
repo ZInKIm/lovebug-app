@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "러브버그 퇴치기",
+    "name": "러브버그 퇴치앱 - 가이드, 지도, 출몰정보, 저주파 퇴치도구",
     "slug": "lovebug-app",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -17,10 +17,13 @@
       "adaptiveIcon": {
         "backgroundColor": "#E1F5EE"
       },
-      "package": "com.lovebug.app"
+      "package": "com.lovebug.app",
+      "usesCleartextTraffic": true
     },
-    "plugins": [
-      "expo-font"
-    ]
+    "extra": {
+      "eas": {
+        "projectId": "dc1b9f44-ca22-4c2f-9371-7d04cf8db5b1"
+      }
+    }
   }
 }

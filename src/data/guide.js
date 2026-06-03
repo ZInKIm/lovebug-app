@@ -163,26 +163,21 @@ export const SEASON_BANNER = {
   message: '서울 기준 6월 중순~7월 초 최대 출몰 시기입니다. 약 2~3주 후 자연 소멸됩니다.',
 };
 
-export const FORECAST_DATA = {
-  peak: '7월 2일',
-  end: '~7월 12일',
-  dday: 12,
-  weekly: [
-    { label: '6/26', value: 45 },
-    { label: '6/27', value: 52 },
-    { label: '6/28', value: 61 },
-    { label: '6/29', value: 70 },
-    { label: '6/30', value: 85 },
-    { label: '7/1',  value: 92 },
-    { label: '7/2',  value: 95 },
-  ],
-  areas: [
-    { name: '은평구 녹번동', value: 92 },
-    { name: '마포구 합정동', value: 78 },
-    { name: '강남구 역삼동', value: 55 },
-    { name: '송파구 잠실동', value: 41 },
-    { name: '용산구 이태원동', value: 35 },
-  ],
+export const TODAY_SIGNAL = {
+  level: 'high',
+  basis: '기온 29°C · 습도 78% · 바람 약함',
 };
 
-export const NAVER_CAFE_URL = 'https://cafe.naver.com'; // 실제 카페 URL로 교체
+export const HOURLY_ACTIVITY = [
+  { time: '아침', range: '6–10시',  level: 'mid',  note: '활동 시작' },
+  { time: '한낮', range: '10–14시', level: 'high', note: '가장 활발 — 외출 주의' },
+  { time: '오후', range: '14–18시', level: 'mid',  note: '점차 감소' },
+  { time: '저녁', range: '18–22시', level: 'low',  note: '활동 줄어듦' },
+];
+
+export const SEASON_INFO = {
+  estimate: '장마가 지나는 7월 중순경 자연 소멸 예상',
+  note: '소멸 시점은 그해 기온·강수에 따라 매년 달라집니다.',
+};
+
+export const NAVER_CAFE_URL = 'https://cafe.naver.com';
