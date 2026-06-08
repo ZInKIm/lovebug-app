@@ -11,19 +11,28 @@
     },
     "ios": {
       "supportsTablet": false,
-      "bundleIdentifier": "com.lovebug.app"
+      "bundleIdentifier": "com.zink.lovebug.app"
     },
     "android": {
       "adaptiveIcon": {
         "backgroundColor": "#E1F5EE"
       },
-      "package": "com.lovebug.app",
-      "usesCleartextTraffic": true
+      "package": "com.zink.lovebug.app"
     },
     "extra": {
       "eas": {
         "projectId": "dc1b9f44-ca22-4c2f-9371-7d04cf8db5b1"
       }
-    }
+    },
+    "plugins": [
+      [
+        "react-native-google-mobile-ads",
+        {
+          "androidAppId": "ca-app-pub-2069956156742833~8729577908"
+        }
+      ],
+      "expo-font",
+      "expo-asset"
+    ]
   }
 }

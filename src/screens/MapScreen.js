@@ -164,50 +164,101 @@ export default function MapScreen() {
             </View>
 
             {/* 필터 칩들 */}
-            <ScrollView horizontal showsHorizontalScrollIndicator={false}
-              style={styles.filterRow} contentContainerStyle={styles.filterContent}>
-              {DATE_FILTERS.map(f => (
-                <TouchableOpacity key={f.id}
-                  style={[styles.filterChip, dateFilter === f.id && styles.filterChipDateActive]}
-                  onPress={() => setDateFilter(f.id)} activeOpacity={0.7}>
-                  <Text style={[styles.filterText, dateFilter === f.id && styles.filterTextDateActive]}>{f.label}</Text>
-                </TouchableOpacity>
-              ))}
-              <View style={styles.filterDivider} />
-              {LEVEL_FILTERS.map(f => (
-                <TouchableOpacity key={f.id}
-                  style={[styles.filterChip, levelFilter === f.id && styles.filterChipActive]}
-                  onPress={() => setLevelFilter(f.id)} activeOpacity={0.7}>
-                  {f.id !== 'all' && <View style={[styles.filterDot, { backgroundColor: LEVELS[f.id]?.color }]} />}
-                  <Text style={[styles.filterText, levelFilter === f.id && styles.filterTextActive]}>{f.label}</Text>
-                </TouchableOpacity>
-              ))}
-            </ScrollView>
+<View style={styles.filterRow}>
 
-            <View style={styles.listHeader}>
-              <Text style={styles.listTitle}>{filteredAreas.length}개 지역</Text>
-            </View>
+  {/* 날짜 필터 */}
+  <ScrollView
+    horizontal
+    showsHorizontalScrollIndicator={false}
+    contentContainerStyle={styles.filterContent}
+  >
+    {DATE_FILTERS.map(f => (
+      <TouchableOpacity
+        key={f.id}
+        style={[
+          styles.filterChip,
+          dateFilter === f.id && styles.filterChipDateActive
+        ]}
+        onPress={() => setDateFilter(f.id)}
+        activeOpacity={0.7}
+      >
+        <Text
+          style={[
+            styles.filterText,
+            dateFilter === f.id && styles.filterTextDateActive
+          ]}
+        >
+          {f.label}
+        </Text>
+      </TouchableOpacity>
+    ))}
+  </ScrollView>
 
-            <ScrollView style={styles.list} nestedScrollEnabled>
-              {filteredAreas.length === 0 ? (
-                <Text style={styles.emptyText}>해당 기간에 신고가 없어요!</Text>
-              ) : (
-                filteredAreas.map((a, i) => {
-                  const lv = LEVELS[a.level];
-                  return (
-                    <TouchableOpacity key={i} style={styles.item} onPress={() => setSelected(a)} activeOpacity={0.7}>
-                      <Text style={styles.rank}>{i + 1}</Text>
-                      <Text style={styles.location}>{a.location}</Text>
-                      <View style={[styles.tag, { backgroundColor: lv.bg }]}>
-                        <Text style={[styles.tagText, { color: lv.color }]}>{lv.label}</Text>
-                      </View>
-                      <Text style={styles.count}>{a.total}건</Text>
-                      <FontAwesome name="chevron-right" size={10} color="#B4B2A9" />
-                    </TouchableOpacity>
-                  );
-                })
-              )}
-            </ScrollView>
+  {/* 심각도 필터 */}
+  <ScrollView
+    horizontal
+    showsHorizontalScrollIndicator={false}
+    contentContainerStyle={[styles.filterContent, { marginTop: 8 }]}
+  >
+    {LEVEL_FILTERS.map(f => (
+      <TouchableOpacity
+        key={f.id}
+        style={[
+          styles.filterChip,
+          levelFilter === f.id && styles.filterChipActive
+        ]}
+        onPress={() => setLevelFilter(f.id)}
+        activeOpacity={0.7}
+      >
+        {f.id !== 'all' && (
+          <View
+            style={[
+              styles.filterDot,
+              { backgroundColor: LEVELS[f.id]?.color }
+            ]}
+          />
+        )}
+
+        <Text
+          style={[
+            styles.filterText,
+            levelFilter === f.id && styles.filterTextActive
+          ]}
+        >
+          {f.label}
+        </Text>
+      </TouchableOpacity>
+    ))}
+  </ScrollView>
+
+</View>
+
+            {/* MapScreen.js 리스트 렌더링 부분 */}
+<ScrollView style={styles.list} nestedScrollEnabled>
+  {filteredAreas.length === 0 ? (
+    <Text style={styles.emptyText}>해당 기간에 신고가 없어요!</Text>
+  ) : (
+    filteredAreas.map((a, i) => {
+      const lv = LEVELS[a.level];
+      return (
+        <TouchableOpacity key={i} style={styles.item} onPress={() => setSelected(a)} activeOpacity={0.7}>
+          <Text style={styles.rank}>{i + 1}</Text>
+          
+          {/* [교정] 대표님 정답: 다른 요소 침범 없이 지역명만 최대 2줄 안전하게 허용 */}
+          <Text style={styles.location} numberOfLines={2}>
+            {a.location}
+          </Text>
+          
+          <View style={[styles.tag, { backgroundColor: lv.bg }]}>
+            <Text style={[styles.tagText, { color: lv.color }]}>{lv.label}</Text>
+          </View>
+          <Text style={styles.count}>{a.total}건</Text>
+          <FontAwesome name="chevron-right" size={10} color="#B4B2A9" />
+        </TouchableOpacity>
+      );
+    })
+  )}
+</ScrollView>
           </View>
         </>
       )}
@@ -284,14 +335,26 @@ const styles = StyleSheet.create({
     shadowColor: '#000', shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.15, shadowRadius: 4, elevation: 4,
   },
-  listContainer: { backgroundColor: '#fff', borderTopWidth: 0.5, borderTopColor: 'rgba(0,0,0,0.1)', maxHeight: 300 },
+  listContainer: {
+    backgroundColor: '#fff',
+    borderTopWidth: 0.5,
+    borderTopColor: 'rgba(0,0,0,0.1)',
+    height: 340,
+  },
   searchRow: { flexDirection: 'row', gap: 8, padding: 12, paddingBottom: 6 },
   searchBox: { flex: 1, flexDirection: 'row', alignItems: 'center', gap: 8, backgroundColor: '#f5f4ee', borderRadius: 8, paddingHorizontal: 10, paddingVertical: 8 },
   searchInput: { flex: 1, fontSize: 13, color: '#1a1a18', padding: 0 },
   refreshBtn: { padding: 8, justifyContent: 'center' },
-  filterRow: { paddingHorizontal: 12, paddingBottom: 8 },
-  filterContent: { flexDirection: 'row', alignItems: 'center', gap: 6 },
-  filterDivider: { width: 1, height: 16, backgroundColor: 'rgba(0,0,0,0.1)', marginHorizontal: 2 },
+  filterRow: {
+  paddingHorizontal: 12,
+  paddingBottom: 8,
+},
+
+filterContent: {
+  flexDirection: 'row',
+  alignItems: 'center',
+  gap: 6,
+},
   filterChip: { flexDirection: 'row', alignItems: 'center', gap: 4, paddingHorizontal: 12, paddingVertical: 6, borderRadius: 16, borderWidth: 0.5, borderColor: 'rgba(0,0,0,0.1)', backgroundColor: '#fff' },
   filterChipActive: { backgroundColor: '#E1F5EE', borderColor: '#0F6E56' },
   filterChipDateActive: { backgroundColor: '#E6F1FB', borderColor: '#0C447C' },
@@ -301,11 +364,27 @@ const styles = StyleSheet.create({
   filterTextDateActive: { color: '#0C447C', fontWeight: '500' },
   listHeader: { paddingHorizontal: 12, paddingBottom: 4 },
   listTitle: { fontSize: 12, color: '#888780' },
-  list: { paddingHorizontal: 12 },
+  list: {
+    paddingHorizontal: 12,
+  },
   emptyText: { fontSize: 13, color: '#888780', textAlign: 'center', paddingVertical: 16 },
-  item: { flexDirection: 'row', alignItems: 'center', gap: 8, paddingVertical: 10, borderBottomWidth: 0.5, borderBottomColor: 'rgba(0,0,0,0.06)' },
+  item: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 8,
+    paddingVertical: 12,
+    minHeight: 48,
+    borderBottomWidth: 0.5,
+    borderBottomColor: 'rgba(0,0,0,0.06)',
+  },
+  rank: { fontSize: 13, color: '#B4B2A9', width: 20, textAlign: 'center' },
   rank: { fontSize: 12, color: '#B4B2A9', width: 16 },
-  location: { flex: 1, fontSize: 13, color: '#1a1a18' },
+  location: {
+    flex: 1,
+    fontSize: 13,
+    lineHeight: 18,
+    color: '#1a1a18',
+  },
   tag: { paddingHorizontal: 8, paddingVertical: 3, borderRadius: 6 },
   tagText: { fontSize: 11, fontWeight: '500' },
   count: { fontSize: 11, color: '#888780' },

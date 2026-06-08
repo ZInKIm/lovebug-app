@@ -1,0 +1,5 @@
+<resources>
+  <string name="app_name">러브버그 퇴치앱 - 가이드, 지도, 출몰정보, 저주파 퇴치도구</string>
+  <string name="expo_splash_screen_resize_mode" translatable="false">contain</string>
+  <string name="expo_splash_screen_status_bar_translucent" translatable="false">false</string>
+</resources>
